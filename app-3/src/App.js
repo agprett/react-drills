@@ -1,26 +1,36 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      data: ['Milk', 'Cheese', 'Bacon', 'Bread', 'Thyme', 'Sage', 'Basil', 'Potato'],
+      words: ''
+    }
+  }
+
+  display(){
+    let shown = this.state.data.filter((e) => {
+      return e.includes(this.state.words)
+    }).map((e,i) => {
+      return <h2 key={i}>{e}</h2>
+    })
+    return shown
+  }
+
+  handleChange(event){
+    this.setState({words: event})
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <input onChange={event => this.handleChange(event.target.value)}/>
+        {this.display()}
+      </div>
+    );
+  }
 }
 
 export default App;
